@@ -1,0 +1,44 @@
+{
+  "name": "n8n-random",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build": "npx rimraf dist && tsc && gulp build:icons",
+    "check": "tsc --noEmit",
+    "dev": "npm run build && npm run docker",
+    "docker": "docker compose up --build",
+    "docker:nuke": "sh -c 'docker stop $(docker ps -aq) && docker rm $(docker ps -aq) && docker rmi -f $(docker images -aq) && docker volume rm $(docker volume ls -q) && docker network rm $(docker network ls -q)'",
+    "lint": "prettier --write ."
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "n8n": {
+    "n8nNodesApiVersion": 1,
+    "credentials": [
+      "dist/credentials/Random.credentials.js"
+    ],
+    "nodes": [
+      "dist/nodes/RandomNode/Random.node.js"
+    ]
+  },
+  "prettier": {
+    "experimentalTernaries": true,
+    "tabWidth": 4,
+    "useTabs": true,
+    "semi": true,
+    "arrowParens": "avoid"
+  },
+  "devDependencies": {
+    "@typescript-eslint/parser": "~8.32.0",
+    "eslint": "^8.57.0",
+    "eslint-plugin-n8n-nodes-base": "^1.16.3",
+    "gulp": "^5.0.0",
+    "prettier": "^3.5.3",
+    "typescript": "^5.8.3"
+  },
+  "peerDependencies": {
+    "n8n-workflow": "*"
+  }
+}
